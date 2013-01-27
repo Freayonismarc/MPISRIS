@@ -1,0 +1,122 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+body #head{
+	background-color: #38092c;
+	height: 150px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+body #head #headWrapper{
+	height: 150px;
+	color: #C90;
+	font-size: 18px;
+	background-color: #38092c;
+	clear: both;
+	width: 900px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+body #head #headWrapper #headLeft{
+	background-color: #38092c;
+	float: left;
+	height: 120px;
+	width: 350px;
+}
+
+body #head #headWrapper #headRight{
+	float: right;
+	height: 120px;
+	width: 550px;
+	background-color: #38092c;
+	color: #CF9;
+}
+
+body #head #headWrapper #headnav{
+	clear: both;
+}
+
+#wrapper{
+	background-color: #f7f7f7;
+	width: 900px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-color: #999999;
+	border-left-color: #999999;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: auto;
+	
+   -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+}
+
+
+#wrapper #bodyArea #left{
+	width: 500px;
+	float: left;
+}
+
+#wrapper #bodyArea #right{
+	width: 400px;
+	float: right;
+}
+
+#wrapper #bodyArea #footer{
+	clear: both;
+	background-color: #000;
+}
+
+body #footer{
+	background-color: #38092c;
+	height: 35px;
+	margin-right: auto;
+	margin-left: auto;
+	color: #C90;
+	font-size: 18px;
+	padding-top: 5px;
+	padding-left: 800px;
+	clear: none;
+}
+
+p{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #666;
+	margin: 20px;
+}
+#wrapper #bodyArea #left h1{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 20px;
+}
+
+body #head #headWrapper #headnav a{
+	text-decoration: none;
+	color: #C90;
+}
+body #head #headWrapper #headnav a:hover{
+	color: #FFF;
+	text-decoration: underline;
+}
+
+a{
+	text-decoration: none;
+	color: #6FF;
+}
+
+a:hover{
+	color: #FFF;
+	text-decoration: underline;
+}
+
