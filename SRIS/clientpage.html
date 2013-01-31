@@ -1,16 +1,3 @@
-<?PHP
-require_once("./include/membersite_config.php");
-
-if(isset($_POST['submitted']))
-{
-   if($fgmembersite->Login())
-   {
-        $fgmembersite->RedirectToURL("clientpage.html");
-   }
-}
-
-?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -35,11 +22,7 @@ body {
             	<img src="images/MPIlogo.png"/>
             </div>
         	<div id="headRight">
-            	<form id="register" name="register" action="" method="post">				
-				Username: <input type="text" name="FirstName" ><br>
-				Password: <input type="text" name="LastName"><br>
-				<input type="submit" value="Submit"> &nbsp; <a href="clientregister.html">Register</a>
-				</form> 
+            	<p>Welcome: User!</p>
             </div>
         	<div id="headnav">
             <a href="">Home</a> | <a href="">Contact Us</a> | <a href="">About Us</a> | <a href="">Gallery</a>
@@ -72,20 +55,6 @@ body {
 	  </div>
     	    <div id="footer"></div>
    	</div>
-    
-    <script type='text/javascript'>
-// <![CDATA[
-
-    var frmvalidator  = new Validator("login");
-    frmvalidator.EnableOnPageErrorDisplay();
-    frmvalidator.EnableMsgsTogether();
-
-    frmvalidator.addValidation("username","req","Please provide your username");
-    
-    frmvalidator.addValidation("password","req","Please provide the password");
-
-// ]]>
-</script>
 </div>
 
 <div id="footer">© 2012 Mix Plant, Inc. All Rights Reserved.</div>

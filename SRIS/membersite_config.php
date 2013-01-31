@@ -4,10 +4,10 @@ require_once("fg_membersite.php");
 $fgmembersite = new FGMembersite();
 
 //Provide your site name here
-$fgmembersite->SetWebsiteName('user11.com');
+$fgmembersite->SetWebsiteName('mixplantinc.ph');
 
 //Provide the email address where you want to get notifications
-$fgmembersite->SetAdminEmail('user11@user11.com');
+$fgmembersite->SetAdminEmail('jacinto.marc@gmail.com');
 
 //Provide your database login details here:
 //hostname, user name, password, database name and table name

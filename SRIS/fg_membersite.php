@@ -38,7 +38,7 @@ class FGMembersite
     //-----Initialization -------
     function FGMembersite()
     {
-        $this->sitename = 'YourWebsiteName.com';
+        $this->sitename = 'mixplantinc.ph';
         $this->rand_key = '0iQx5oBk66oVZep';
     }
     
@@ -386,7 +386,7 @@ class FGMembersite
         }   
         $confirmcode = $this->SanitizeForSQL($_GET['code']);
         
-        $result = mysql_query("Select name, email from $this->tablename where confirmcode='$confirmcode'",$this->connection);   
+        $result = mysql_query("Select firstname, middlename, lastname, email from $this->tablename where confirmcode='$confirmcode'",$this->connection);   
         if(!$result || mysql_num_rows($result) <= 0)
         {
             $this->HandleError("Wrong confirm code.");
@@ -492,7 +492,7 @@ class FGMembersite
         
         $mailer->AddAddress($this->admin_email);
         
-        $mailer->Subject = "Registration Completed: ".$user_rec['name'];
+        $mailer->Subject = "Registration Completed: ".$user_rec['firstname'];
 
         $mailer->From = $this->GetFromAddress();         
         
@@ -520,7 +520,7 @@ class FGMembersite
         
         $mailer->CharSet = 'utf-8';
         
-        $mailer->AddAddress($email,$user_rec['name']);
+        $mailer->AddAddress($email,$user_rec['firstname' + " " +'middlename' + " " +'lastname']);
         
         $mailer->Subject = "Your reset password request at ".$this->sitename;
 
@@ -553,13 +553,13 @@ class FGMembersite
         
         $mailer->CharSet = 'utf-8';
         
-        $mailer->AddAddress($email,$user_rec['name']);
+        $mailer->AddAddress($email,$user_rec['firstname' + " " +'middlename' + " " +'lastname']);
         
         $mailer->Subject = "Your new password for ".$this->sitename;
 
         $mailer->From = $this->GetFromAddress();
         
-        $mailer->Body ="Hello ".$user_rec['name']."\r\n\r\n".
+        $mailer->Body ="Hello ".$user_rec['firstname']."\r\n\r\n".
         "Your password is reset successfully. ".
         "Here is your updated login:\r\n".
         "username:".$user_rec['username']."\r\n".
@@ -589,9 +589,15 @@ class FGMembersite
         }
         
         $validator = new FormValidator();
-        $validator->addValidation("name","req","Please fill in Name");
+        $validator->addValidation("firstname","req","Please fill in First Name");
+		$validator->addValidation("middlename","req","Please fill in Middle Name");
+		$validator->addValidation("lastname","req","Please fill in Last Name");
+		$validator->addValidation("bday","req","Please fill in your birth date");
         $validator->addValidation("email","email","The input for Email should be a valid email value");
         $validator->addValidation("email","req","Please fill in Email");
+		$validator->addValidation("city","req","Please fill in your city");
+		$validator->addValidation("province","req","Please fill in province");
+		$validator->addValidation("zipcode","req","Please fill in zip code");
         $validator->addValidation("username","req","Please fill in UserName");
         $validator->addValidation("password","req","Please fill in Password");
 
@@ -612,7 +618,9 @@ class FGMembersite
     
     function CollectRegistrationSubmission(&$formvars)
     {
-        $formvars['name'] = $this->Sanitize($_POST['name']);
+        $formvars['firstname'] = $this->Sanitize($_POST['firstname']);
+		$formvars['middlename'] = $this->Sanitize($_POST['middlename']);
+		$formvars['lastname'] = $this->Sanitize($_POST['lastname']);
         $formvars['email'] = $this->Sanitize($_POST['email']);
         $formvars['username'] = $this->Sanitize($_POST['username']);
         $formvars['password'] = $this->Sanitize($_POST['password']);
@@ -624,7 +632,7 @@ class FGMembersite
         
         $mailer->CharSet = 'utf-8';
         
-        $mailer->AddAddress($formvars['email'],$formvars['name']);
+        $mailer->AddAddress($formvars['email'],$formvars['firstname' + " " + 'lastname']);
         
         $mailer->Subject = "Your registration with ".$this->sitename;
 
@@ -634,7 +642,7 @@ class FGMembersite
         
         $confirm_url = $this->GetAbsoluteURLFolder().'/confirmreg.php?code='.$confirmcode;
         
-        $mailer->Body ="Hello ".$formvars['name']."\r\n\r\n".
+        $mailer->Body ="Hello ".$formvars['firstname' + " " + 'lastname']."\r\n\r\n".
         "Thanks for your registration with ".$this->sitename."\r\n".
         "Please click the link below to confirm your registration.\r\n".
         "$confirm_url\r\n".
@@ -669,12 +677,12 @@ class FGMembersite
         
         $mailer->AddAddress($this->admin_email);
         
-        $mailer->Subject = "New registration: ".$formvars['name'];
+        $mailer->Subject = "New registration: ".$formvars['firstname'];
 
         $mailer->From = $this->GetFromAddress();         
         
         $mailer->Body ="A new user registered at ".$this->sitename."\r\n".
-        "Name: ".$formvars['name']."\r\n".
+        "Name: ".$formvars['firstname' + " " + 'middlename' + " " + 'lastname']."\r\n".
         "Email address: ".$formvars['email']."\r\n".
         "UserName: ".$formvars['username'];
         
@@ -760,7 +768,7 @@ class FGMembersite
         return true;
     }
     
-    function CreateTable()
+   /* function CreateTable()
     {
         $qry = "Create Table $this->tablename (".
                 "id_user INT NOT NULL AUTO_INCREMENT ,".
@@ -779,7 +787,7 @@ class FGMembersite
             return false;
         }
         return true;
-    }
+    }*/
     
     function InsertIntoDB(&$formvars)
     {
@@ -789,16 +797,28 @@ class FGMembersite
         $formvars['confirmcode'] = $confirmcode;
         
         $insert_query = 'insert into '.$this->tablename.'(
-                name,
+                firstname,
+				middlename,
+				lastname,
+				bday,
                 email,
+				city,
+				province,
+				zipcode,
                 username,
                 password,
                 confirmcode
                 )
                 values
                 (
-                "' . $this->SanitizeForSQL($formvars['name']) . '",
+                "' . $this->SanitizeForSQL($formvars['firstname']) . '",
+				"' . $this->SanitizeForSQL($formvars['middlename']) . '",
+				"' . $this->SanitizeForSQL($formvars['lastname']) . '",
+				"' . $this->SanitizeForSQL($formvars['bday']) . '",
                 "' . $this->SanitizeForSQL($formvars['email']) . '",
+				"' . $this->SanitizeForSQL($formvars['city']) . '",
+				"' . $this->SanitizeForSQL($formvars['province']) . '",
+				"' . $this->SanitizeForSQL($formvars['zipcode']) . '",
                 "' . $this->SanitizeForSQL($formvars['username']) . '",
                 "' . md5($formvars['password']) . '",
                 "' . $confirmcode . '"
